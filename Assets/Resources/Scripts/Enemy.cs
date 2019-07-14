@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //setup enemy
     Rigidbody m_Rigidbody;
@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("PlayerCube");
+        player = GameObject.Find("PlayerCube(Clone)");
 
         m_Speed = Random.Range(4.0f, 5.5f);
         m_Turn = Random.Range(1.0f, 8.0f);
@@ -37,7 +37,16 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerLocation = player.transform.position;
+        try
+        {
+            playerLocation = player.transform.position;
+        }
+        catch (System.Exception)
+        {
+
+            player = GameObject.Find("PlayerCube(Clone)");
+        }
+
         //check if player is within box or not
         canMove = boundingBox.GetComponent<BBox>().playerInBox;
 
@@ -56,5 +65,13 @@ public class EnemyMovement : MonoBehaviour
             
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.Equals(player))
+        {
+            player.GetComponent<Player>().health -= 1.5f;   
+        }
     }
 }

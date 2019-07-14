@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
-
+    public float health = 100.0f;
     Rigidbody m_Rigidbody;
     float m_Speed;
     float m_Turn;
@@ -51,5 +51,11 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * m_Turn, Space.World);
             transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
         }
+
+        if(health <= 0.0f)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log(health);
     }
 }
