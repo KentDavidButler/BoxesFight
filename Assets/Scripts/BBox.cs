@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bounds : MonoBehaviour
+public class BBox : MonoBehaviour
 {
     //Make sure to assign this in the Inspector window
     public Transform m_NewTransform;
@@ -26,7 +26,6 @@ public class Bounds : MonoBehaviour
         //If the first GameObject's Bounds contains the Transform's position, output a message in the console
         if (m_Collider.bounds.Contains(m_Point))
         {
-            Debug.Log("Bounds contain the point : " + m_Point);
             playerInBox = true;
         }
         else
