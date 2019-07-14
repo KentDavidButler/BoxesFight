@@ -6,8 +6,8 @@ public class EnemyMovement : MonoBehaviour
 {
     //setup enemy
     Rigidbody m_Rigidbody;
-    float m_Speed;
-    float m_Turn = 5.0f;
+    public float m_Speed;
+    public float m_Turn;
 
     //pull public variable from BBox script within BoundingBox Object
     GameObject boundingBox;
@@ -15,14 +15,19 @@ public class EnemyMovement : MonoBehaviour
 
     //Setup Player info
     Vector3 playerLocation;
-    public GameObject player;
+    GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("PlayerCube");
+
+        m_Speed = Random.Range(4.0f, 5.5f);
+        m_Turn = Random.Range(1.0f, 8.0f);
+
         //Fetch the Rigidbody component you attach from your GameObject
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Speed = 4.0f;
+        //m_Speed = 4.0f;
 
         //pulling variable from script connected to boundingBox game object
         boundingBox = GameObject.Find("BoundingBox");
