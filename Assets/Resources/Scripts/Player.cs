@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
     Rigidbody m_Rigidbody;
     float m_Speed;
     float m_Turn;
+    GameObject remains;
 
     // Start is called before the first frame update
     void Start()
     {
+        remains = Resources.Load("GameObjects/PlayerRemains") as GameObject;
         //Fetch the Rigidbody component you attach from your GameObject
         m_Rigidbody = GetComponent<Rigidbody>();
         //Set the speed of the GameObject
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
 
         if(health <= 0.0f)
         {
+            Instantiate(remains, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         Debug.Log(health);

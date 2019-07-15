@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     Rigidbody m_Rigidbody;
     public float m_Speed;
     public float m_Turn;
+    private bool touchingPlayer;
 
     //pull public variable from BBox script within BoundingBox Object
     GameObject boundingBox;
@@ -24,10 +25,10 @@ public class Enemy : MonoBehaviour
 
         m_Speed = Random.Range(4.0f, 5.5f);
         m_Turn = Random.Range(1.0f, 8.0f);
+        touchingPlayer = false;
 
         //Fetch the Rigidbody component you attach from your GameObject
         m_Rigidbody = GetComponent<Rigidbody>();
-        //m_Speed = 4.0f;
 
         //pulling variable from script connected to boundingBox game object
         boundingBox = GameObject.Find("BoundingBox");
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour
         }
         catch (System.Exception)
         {
-
+            touchingPlayer = false;
             player = GameObject.Find("PlayerCube(Clone)");
         }
 
@@ -62,16 +63,23 @@ public class Enemy : MonoBehaviour
             {
                 transform.position += transform.forward * m_Speed * Time.deltaTime;
             }
-            
+        }
+
+        if(touchingPlayer)
+        {
+            player.GetComponent<Player>().health -= 1.5f;
         }
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.Equals(player))
-        {
-            player.GetComponent<Player>().health -= 1.5f;   
-        }
+        if (collision.gameObject.Equals(player))
+            this.touchingPlayer = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.Equals(player))
+            this.touchingPlayer = false;
     }
 }

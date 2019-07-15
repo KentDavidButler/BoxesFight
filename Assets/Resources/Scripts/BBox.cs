@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BBox : MonoBehaviour
 {
-    //Make sure to assign this in the Inspector window
-    Transform m_NewTransform;
     public bool playerInBox = false;
+
+    Transform m_NewTransform;
     Collider m_Collider;
     Vector3 m_Point;
 
