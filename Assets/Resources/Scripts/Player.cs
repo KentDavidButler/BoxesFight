@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float health = 100.0f;
+    float health = 100.0f;
     Rigidbody m_Rigidbody;
     float m_Speed;
     float m_Turn;
     GameObject remains;
+    GameObject score;
 
     // Start is called before the first frame update
     void Start()
     {
+        score = GameObject.Find("GoalBox");
         remains = Resources.Load("GameObjects/PlayerRemains") as GameObject;
         //Fetch the Rigidbody component you attach from your GameObject
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -56,9 +58,21 @@ public class Player : MonoBehaviour
 
         if(health <= 0.0f)
         {
+            //subtract score on death
+            score.GetComponent<GBox>().MinusScore();
+            //substitue player for 'dead player'
             Instantiate(remains, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        Debug.Log(health);
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public void Damage(float amount)
+    {
+        health -= amount;
     }
 }

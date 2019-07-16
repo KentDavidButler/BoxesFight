@@ -67,7 +67,8 @@ public class Enemy : MonoBehaviour
 
         if(touchingPlayer)
         {
-            player.GetComponent<Player>().health -= 1.5f;
+            //player.GetComponent<Player>().health -= 1.5f;
+            player.GetComponent<Player>().Damage(1.5f);
         }
 
     }

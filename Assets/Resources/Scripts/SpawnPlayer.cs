@@ -13,7 +13,6 @@ public class SpawnPlayer : MonoBehaviour
     {
         playerObject = Resources.Load("GameObjects/playerCube") as GameObject;
         Instantiate(playerObject);
-
     }
 
     // Update is called once per frame
