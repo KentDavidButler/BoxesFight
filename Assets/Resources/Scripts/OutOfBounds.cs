@@ -52,7 +52,6 @@ public class OutOfBounds : MonoBehaviour
     {
         playerObj = GameObject.Find("PlayerCube(Clone)");
         Destroy(playerObj);
-        Debug.LogWarning("THIS SHOULD ONLY HAPPEN ONCE< IF IT HAPPENS MORE THEN DEAD MEAT");
         yield return new WaitForSeconds(waitTime);
         coroutine_DestroyPlayer = DestroyPlayer(0.5f);
     }

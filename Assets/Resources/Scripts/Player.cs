@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     float m_Turn;
     GameObject remains;
     GameObject score;
+    private IEnumerator coroutine_Restart;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         //Set the speed of the GameObject
         m_Speed = 5.0f;
         m_Turn = 100.0f;
+        coroutine_Restart = Restart(1.0f);
     }
 
     // Update is called once per frame
@@ -56,6 +59,11 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
         }
 
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            StartCoroutine(coroutine_Restart);
+        }
+
         if(health <= 0.0f)
         {
             //subtract score on death
@@ -74,5 +82,14 @@ public class Player : MonoBehaviour
     public void Damage(float amount)
     {
         health -= amount;
+    }
+
+    private IEnumerator Restart(float waitTime)
+    {
+        score.GetComponent<GBox>().SetHighScore();
+        PlayerPrefs.SetFloat("High Score", score.GetComponent<GBox>().GetHighScore());
+        SceneManager.LoadScene("SampleScene");
+        yield return new WaitForSeconds(waitTime);
+        coroutine_Restart = Restart(1.0f);
     }
 }

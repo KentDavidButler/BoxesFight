@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GBox : MonoBehaviour
 {
     public float score;
+    public float highScore;
     public Text DisplayScore;
     int mulitplyer;
 
@@ -31,6 +32,7 @@ public class GBox : MonoBehaviour
     void Start()
     {
         score = 0;
+        highScore = PlayerPrefs.GetFloat("High Score");
         mulitplyer = 1;
         enemyCnt = 2;
         player = GameObject.Find("PlayerCube(Clone)");
@@ -69,6 +71,7 @@ public class GBox : MonoBehaviour
         {
             StartCoroutine(coroutine_SpawnEnemies);
         }
+
     }
 
     private IEnumerator destroyPlayer(float waitTime)
@@ -101,7 +104,7 @@ public class GBox : MonoBehaviour
 
     void SetScoreToScoreBoard()
     {
-        DisplayScore.text = "Score: " + score.ToString();
+        DisplayScore.text = $"HighScore: {highScore.ToString()} {Environment.NewLine}Score: {score.ToString()} ";
     }
 
     public void MinusScore()
@@ -110,5 +113,18 @@ public class GBox : MonoBehaviour
         if (score <= 0)
             score = 0;
         SetScoreToScoreBoard();
+    }
+
+    public float GetHighScore()
+    {
+        return highScore;
+    }
+
+    public void SetHighScore()
+    {
+        if(score >= highScore)
+        {
+            highScore = score;
+        }
     }
 }
